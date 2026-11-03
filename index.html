@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff8ef">
+    <meta
+      name="description"
+      content="Spin the Milky Den prize wheel and win an ice cream treat."
+    >
+    <title>Milky Den | Spin &amp; Win</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="brand-header" aria-label="Milky Den">
+        <span class="brand-sparkle" aria-hidden="true">✦</span>
+        <span class="brand-name">MILKY DEN</span>
+        <span class="brand-sparkle" aria-hidden="true">✦</span>
+      </header>
+
+      <section class="game-card" aria-labelledby="page-title">
+        <div class="intro">
+          <p class="eyebrow"><span aria-hidden="true">✿</span> A LITTLE SCOOP OF LUCK</p>
+          <h1 id="page-title">SPIN <span>&amp;</span> WIN!</h1>
+          <p class="subtitle">Spin the wheel and win exciting treats!</p>
+        </div>
+
+        <div class="wheel-area">
+          <div class="wheel-frame" id="wheelFrame">
+            <div class="pointer" aria-hidden="true"></div>
+            <canvas
+              class="prize-wheel"
+              id="prizeWheel"
+              role="img"
+              aria-label="Prize wheel, clockwise from the top: Free Softy, 10 percent off, Better Luck Next Time, 20 percent off, Free Topping, 10 percent off, Better Luck Next Time, 20 percent off."
+            ></canvas>
+            <div class="wheel-hub" aria-hidden="true">
+              <img class="hub-logo" src="assets/logo.png" alt="">
+            </div>
+          </div>
+        </div>
+
+        <button class="spin-button" id="spinButton" type="button">
+          <span class="button-label">SPIN NOW</span>
+          <span class="button-arrow" aria-hidden="true">➜</span>
+        </button>
+        <p class="spin-note" id="spinNote">One spin, one sweet surprise!</p>
+
+        <div class="result-card" id="resultCard" role="status" aria-live="polite" hidden>
+          <span class="result-sparkle" aria-hidden="true">✦</span>
+          <p class="result-kicker" id="resultKicker">YOUR SPIN RESULT</p>
+          <p class="result-message" id="resultMessage"></p>
+          <p class="result-detail" id="resultDetail"></p>
+        </div>
+
+        <p class="demo-note">Just for fun — a sweet little demo!</p>
+      </section>
+
+      <footer class="page-footer">
+        <span>MADE WITH <span class="heart" aria-label="love">♥</span> &amp; A LITTLE EXTRA SPRINKLE</span>
+      </footer>
+    </main>
+  </body>
+</html>
