@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff9f0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Milky Den | Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="./admin.css">
+    <script src="../assets/supabase-config.js"></script>
+    <script type="module" src="./admin.js"></script>
+  </head>
+  <body>
+    <main class="admin-shell">
+      <section class="login-panel" id="loginPanel" aria-labelledby="loginTitle">
+        <a class="brand-lockup" href="../" aria-label="Milky Den customer website">
+          <img src="../assets/logo.png" alt="Milky Den">
+          <span>MILKY DEN <small>SPIN &amp; WIN</small></span>
+        </a>
+        <div class="login-card">
+          <span class="login-scoop" aria-hidden="true">🍦</span>
+          <p class="eyebrow">STAFF ACCESS</p>
+          <h1 id="loginTitle">Welcome back</h1>
+          <p class="login-copy">Sign in with your authorized Milky Den account.</p>
+          <form id="loginForm">
+            <label for="adminEmail">Email address</label>
+            <input id="adminEmail" name="email" type="email" autocomplete="username" required>
+            <label for="adminPassword">Password</label>
+            <input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
+            <button class="button button-primary" id="loginButton" type="submit">SIGN IN</button>
+          </form>
+          <p class="notice" id="loginNotice" role="status" aria-live="polite"></p>
+          <p class="login-footnote">Administrator accounts are managed securely in Supabase. Public sign-up is not available.</p>
+        </div>
+      </section>
+
+      <section class="dashboard" id="dashboard" hidden aria-labelledby="dashboardTitle">
+        <header class="topbar">
+          <a class="brand-lockup" href="../" aria-label="Milky Den customer website">
+            <img src="../assets/logo.png" alt="Milky Den">
+            <span>MILKY DEN <small>SPIN &amp; WIN ADMIN</small></span>
+          </a>
+          <div class="account-actions">
+            <span class="account-email" id="accountEmail"></span>
+            <button class="button button-quiet" id="signOutButton" type="button">SIGN OUT</button>
+          </div>
+        </header>
+
+        <div class="dashboard-content">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">CAMPAIGN OVERVIEW</p>
+              <h1 id="dashboardTitle">Good day, Milky Den</h1>
+              <p>Customer spins and prize redemptions, all in one place.</p>
+            </div>
+            <span class="secure-badge"><span aria-hidden="true">●</span> SECURE ADMIN VIEW</span>
+          </div>
+
+          <p class="notice dashboard-notice" id="dashboardNotice" role="status" aria-live="polite"></p>
+
+          <section class="summary-grid" aria-label="Campaign summary">
+            <article class="summary-card"><span>Total Customers</span><strong id="totalCustomers">—</strong><small>Registered customers</small></article>
+            <article class="summary-card"><span>Total Spins</span><strong id="totalSpins">—</strong><small>Campaign entries</small></article>
+            <article class="summary-card summary-pink"><span>Free Softy Winners</span><strong id="freeSoftyWinners">—</strong><small>Prize awarded</small></article>
+            <article class="summary-card summary-mint"><span>Free Topping Winners</span><strong id="freeToppingWinners">—</strong><small>Prize awarded</small></article>
+            <article class="summary-card summary-lavender"><span>20% OFF Winners</span><strong id="twentyOffWinners">—</strong><small>₹500 minimum purchase</small></article>
+            <article class="summary-card summary-yellow"><span>10% OFF Winners</span><strong id="tenOffWinners">—</strong><small>Prize awarded</small></article>
+            <article class="summary-card summary-peach"><span>Pending Redemptions</span><strong id="pendingRedemptions">—</strong><small>Awaiting shop visit</small></article>
+            <article class="summary-card summary-berry"><span>Completed Redemptions</span><strong id="completedRedemptions">—</strong><small>Marked redeemed</small></article>
+          </section>
+
+          <section class="customer-panel" aria-labelledby="customersTitle">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">CUSTOMER RECORDS</p>
+                <h2 id="customersTitle">Spin activity</h2>
+              </div>
+              <p class="record-count" id="recordCount"></p>
+            </div>
+
+            <form class="filters" id="filterForm">
+              <label class="search-field" for="searchInput">
+                <span>Search name or mobile</span>
+                <input id="searchInput" type="search" placeholder="e.g. Ananya or 98765…" autocomplete="off">
+              </label>
+              <label for="prizeFilter">
+                <span>Prize</span>
+                <select id="prizeFilter">
+                  <option value="">All prizes</option>
+                  <option value="FREE SOFTY">FREE SOFTY</option>
+                  <option value="10% OFF">10% OFF</option>
+                  <option value="20% OFF">20% OFF</option>
+                  <option value="FREE TOPPING">FREE TOPPING</option>
+                  <option value="BETTER LUCK NEXT TIME">BETTER LUCK NEXT TIME</option>
+                </select>
+              </label>
+              <label for="statusFilter">
+                <span>Redemption status</span>
+                <select id="statusFilter">
+                  <option value="">All statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="redeemed">Redeemed</option>
+                </select>
+              </label>
+              <button class="button button-filter" type="submit">SEARCH</button>
+            </form>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Prize Won</th>
+                    <th scope="col">Spin Date</th>
+                    <th scope="col">Redemption Status</th>
+                    <th scope="col"><span class="visually-hidden">Customer details</span></th>
+                  </tr>
+                </thead>
+                <tbody id="customerRows"></tbody>
+              </table>
+              <div class="empty-state" id="emptyState" hidden>
+                <span aria-hidden="true">🍨</span>
+                <strong id="emptyTitle">No customer records yet</strong>
+                <p id="emptyCopy">Records will appear here when the connected campaign has customer spins.</p>
+              </div>
+            </div>
+
+            <div class="pagination">
+              <span id="pageLabel">Page 1</span>
+              <div>
+                <button class="button button-quiet" id="previousPage" type="button" disabled>PREVIOUS</button>
+                <button class="button button-quiet" id="nextPage" type="button" disabled>NEXT</button>
+              </div>
+            </div>
+          </section>
+          <p class="dashboard-footer">Customer records and redemption actions are served from Supabase. Browser localStorage records are not included.</p>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="detail-dialog" id="detailDialog" aria-labelledby="detailTitle">
+      <form method="dialog" class="dialog-close-form"><button class="dialog-close" aria-label="Close details">×</button></form>
+      <p class="eyebrow">CUSTOMER RECORD</p>
+      <h2 id="detailTitle">Prize details</h2>
+      <dl class="detail-list">
+        <div><dt>Full name</dt><dd id="detailName"></dd></div>
+        <div><dt>Mobile number</dt><dd id="detailPhone"></dd></div>
+        <div><dt>Prize won</dt><dd id="detailPrize"></dd></div>
+        <div><dt>Spin date and time</dt><dd id="detailSpinDate"></dd></div>
+        <div><dt>Redemption status</dt><dd id="detailStatus"></dd></div>
+        <div><dt>Redemption date and time</dt><dd id="detailRedeemedAt"></dd></div>
+        <div><dt>Redeemed by</dt><dd id="detailRedeemedBy"></dd></div>
+        <div id="purchaseDetailRow" hidden><dt>Purchase total</dt><dd id="detailPurchaseTotal"></dd></div>
+      </dl>
+      <p class="prize-condition" id="detailCondition" hidden>Valid only on purchases of ₹500 or more.</p>
+      <button class="button button-primary" id="openRedeemButton" type="button">MARK AS REDEEMED</button>
+      <p class="notice dialog-notice" id="detailNotice" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <dialog class="detail-dialog redeem-dialog" id="redeemDialog" aria-labelledby="redeemTitle">
+      <form method="dialog" class="dialog-close-form"><button class="dialog-close" aria-label="Close confirmation">×</button></form>
+      <p class="eyebrow">CONFIRM REDEMPTION</p>
+      <h2 id="redeemTitle">Mark this prize as redeemed?</h2>
+      <p class="confirm-prize" id="confirmPrize"></p>
+      <p class="prize-condition" id="redeemCondition" hidden>Valid only on purchases of ₹500 or more.</p>
+      <label id="purchaseAmountField" for="purchaseAmount" hidden>Purchase total (₹)
+        <input id="purchaseAmount" type="number" min="500" step="0.01" inputmode="decimal" placeholder="500.00">
+      </label>
+      <p class="confirm-copy">This action is saved to the campaign database and cannot be reversed here.</p>
+      <div class="dialog-actions">
+        <button class="button button-quiet" id="cancelRedeemButton" type="button">CANCEL</button>
+        <button class="button button-primary" id="confirmRedeemButton" type="button">CONFIRM REDEMPTION</button>
+      </div>
+      <p class="notice dialog-notice" id="redeemNotice" role="status" aria-live="polite"></p>
+    </dialog>
+  </body>
+</html>
